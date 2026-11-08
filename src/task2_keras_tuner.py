@@ -234,3 +234,4 @@ if __name__ == "__main__":
     run_toy_fashion_mnist_tuning()
     if Path("data/splits/train.csv").exists():
         run_visionguard_tuning()
+

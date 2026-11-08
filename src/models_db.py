@@ -141,3 +141,4 @@ if __name__ == "__main__":
     )
     print(f"[SUCCESS] Logged test prediction with record ID #{test_id}!")
     print(f"Current history length: {len(get_all_logs())} entries.")
+

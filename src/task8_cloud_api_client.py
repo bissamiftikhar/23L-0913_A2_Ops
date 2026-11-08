@@ -139,3 +139,4 @@ def test_cloud_api_with_images(
 if __name__ == "__main__":
     url = sys.argv[1] if len(sys.argv) > 1 else CLOUD_API_URL
     test_cloud_api_with_images(api_url=url)
+

@@ -1,0 +1,3 @@
+filepath,filename,folder,class,file_size_bytes,file_size_kb,width,height,aspect_ratio,color_mode,format,sha256,is_corrupt,error_msg,is_duplicate
+data/raw/AiArtData/AiArtData/image33.jpg,image33.jpg,AiArtData,ai_generated,163866,160.03,1024,683,1.4993,RGB,JPEG,f3268a4fc0477b2f3d9728f118afe32bf5196c3b476def53e34229672f77dc97,False,,False
+data/raw/AiArtData/AiArtData/image34.jpg,image34.jpg,AiArtData,ai_generated,163866,160.03,1024,683,1.4993,RGB,JPEG,f3268a4fc0477b2f3d9728f118afe32bf5196c3b476def53e34229672f77dc97,False,,True

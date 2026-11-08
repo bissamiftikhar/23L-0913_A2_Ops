@@ -70,3 +70,4 @@ jobs:
           docker ps
           curl -f http://localhost:5001/health || exit 1
           docker stop test_vg
+

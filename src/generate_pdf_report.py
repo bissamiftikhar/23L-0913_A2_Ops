@@ -69,6 +69,24 @@ class NumberedCanvas(canvas.Canvas):
         self.restoreState()
 
 
+def get_pdf_img(path: Path, max_w: int = 1400) -> str:
+    """Returns an optimized version of the image to keep PDF lightweight and responsive."""
+    if not path.exists():
+        return str(path)
+    if path.stat().st_size < 300 * 1024:
+        return str(path)
+    opt_path = path.with_name(path.stem + "_pdf_opt.jpg")
+    if not opt_path.exists() or opt_path.stat().st_mtime < path.stat().st_mtime:
+        from PIL import Image
+        with Image.open(path) as img:
+            img = img.convert("RGB")
+            if img.width > max_w:
+                ratio = max_w / img.width
+                img = img.resize((max_w, int(img.height * ratio)), Image.Resampling.LANCZOS)
+            img.save(opt_path, "JPEG", quality=88, optimize=True)
+    return str(opt_path)
+
+
 def build_pdf_report():
     print(f"[INFO] Compiling comprehensive PDF report to {OUTPUT_PDF}...")
     doc = SimpleDocTemplate(
@@ -307,13 +325,13 @@ def build_pdf_report():
 
     grid_img_path = ARTIFACTS_DIR / "task1" / "task1_3_sample_grid.png"
     if grid_img_path.exists():
-        story.append(RLImage(str(grid_img_path), width=6.8 * inch, height=4.2 * inch))
+        story.append(RLImage(get_pdf_img(grid_img_path), width=6.8 * inch, height=4.2 * inch))
         story.append(Paragraph("<b>Figure 1.1:</b> Sample Images per Class (Top 2 Rows: Real Art/Photos | Bottom 2 Rows: AI-Generated).", callout_style))
         story.append(Spacer(1, 8))
 
     hist_img_path = ARTIFACTS_DIR / "task1" / "task1_3_histograms.png"
     if hist_img_path.exists():
-        story.append(RLImage(str(hist_img_path), width=6.8 * inch, height=2.3 * inch))
+        story.append(RLImage(get_pdf_img(hist_img_path), width=6.8 * inch, height=2.3 * inch))
         story.append(Paragraph("<b>Figure 1.2:</b> Histograms of Image Width, Height, and File Size (KB, Log Scale) per Class.", callout_style))
         story.append(Spacer(1, 8))
 
@@ -379,7 +397,7 @@ def build_pdf_report():
 
     aug_batch_img = ARTIFACTS_DIR / "task2" / "task2_1_augmented_batch.png"
     if aug_batch_img.exists():
-        story.append(RLImage(str(aug_batch_img), width=6.8 * inch, height=4.2 * inch))
+        story.append(RLImage(get_pdf_img(aug_batch_img), width=6.8 * inch, height=4.2 * inch))
         story.append(Paragraph("<b>Figure 2.1:</b> One Augmented Training Batch (224&times;224, RandomFlip, Rotation, Zoom, Contrast).", callout_style))
         story.append(Spacer(1, 10))
 
@@ -507,7 +525,7 @@ def build_pdf_report():
     ))
     err_img_path = ARTIFACTS_DIR / "task2" / "task2_6_error_grid.png"
     if err_img_path.exists():
-        story.append(RLImage(str(err_img_path), width=6.8 * inch, height=3.0 * inch))
+        story.append(RLImage(get_pdf_img(err_img_path), width=6.8 * inch, height=3.0 * inch))
         story.append(Paragraph("<b>Figure 2.6:</b> Error Analysis Visual Grid (10 Misclassified Test Images).", callout_style))
         story.append(Spacer(1, 6))
 
@@ -547,7 +565,7 @@ def build_pdf_report():
     ))
     gradcam_img = ARTIFACTS_DIR / "task2" / "task2_bonus_gradcam.png"
     if gradcam_img.exists():
-        story.append(RLImage(str(gradcam_img), width=6.8 * inch, height=3.4 * inch))
+        story.append(RLImage(get_pdf_img(gradcam_img), width=6.8 * inch, height=3.4 * inch))
         story.append(Paragraph("<b>Figure 2.7:</b> Grad-CAM Visualizations (Top: 4 Correct | Bottom: 4 Misclassifications).", callout_style))
         story.append(Spacer(1, 6))
     story.append(Paragraph(
@@ -947,3 +965,4 @@ nc: connect to localhost port 5432 (tcp) failed: Connection refused
 
 if __name__ == "__main__":
     build_pdf_report()
+

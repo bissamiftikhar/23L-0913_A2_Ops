@@ -1,0 +1,3 @@
+Run Name,Run ID,Learning Rate,Final Val Accuracy,Final Val Loss
+toy_run_lr_0.01,abf57e59e38b4c5fa9941b999404c708,0.01,0.798,0.5361
+toy_run_lr_0.001,7dfb271ca2374d6e95387a5900f1548e,0.001,0.76,0.6219

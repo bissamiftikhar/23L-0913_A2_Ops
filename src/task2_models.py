@@ -159,3 +159,4 @@ def get_layer_table_and_summary(model: keras.Model) -> Tuple[str, List[Dict[str,
     model.summary(print_fn=lambda s: summary_lines.append(s))
     summary_str = "\n".join(summary_lines)
     return summary_str, rows
+

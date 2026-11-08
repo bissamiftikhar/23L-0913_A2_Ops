@@ -127,3 +127,4 @@ Workflow secrets (`DAGSHUB_USER_TOKEN`, database passwords, API secret keys) are
 | **Task 8** | Integration of Local Flask View with Cloud API & DB audit logging | 15 | Multi-input screenshots, Live integration logs |
 | **Report**| Comprehensive PDF Report (`23L-0913_VisionGuard.pdf`) | Deliverable | Complete submitted PDF with all screenshots & commentary |
 | **Total** | | **100 + 1** | |
+

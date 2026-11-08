@@ -1,0 +1,22 @@
+Layer Name,Type,Output Shape,Param #,Trainable
+image_input,InputLayer,Multiple,0,True
+conv1,Conv2D,Multiple,896,True
+bn1,BatchNormalization,Multiple,128,True
+relu1,Activation,Multiple,0,True
+pool1,MaxPooling2D,Multiple,0,True
+conv2,Conv2D,Multiple,18496,True
+bn2,BatchNormalization,Multiple,256,True
+relu2,Activation,Multiple,0,True
+pool2,MaxPooling2D,Multiple,0,True
+conv3,Conv2D,Multiple,73856,True
+bn3,BatchNormalization,Multiple,512,True
+relu3,Activation,Multiple,0,True
+pool3,MaxPooling2D,Multiple,0,True
+drop_spatial,Dropout,Multiple,0,True
+conv4,Conv2D,Multiple,147584,True
+bn4,BatchNormalization,Multiple,512,True
+relu4,Activation,Multiple,0,True
+gap,GlobalAveragePooling2D,Multiple,0,True
+dense_features,Dense,Multiple,8256,True
+drop_dense,Dropout,Multiple,0,True
+ai_probability,Dense,Multiple,65,True

@@ -1,0 +1,3 @@
+Model,Decision Threshold,Accuracy,Precision,Recall,F1-Score,ROC-AUC
+Baseline CNN (Scratch),0.5,0.4521,0.0,0.0,0.0,0.4504
+MobileNetV2 (Champion Fine-Tuned),0.35,0.6849,0.6574,0.8875,0.7553,0.7813

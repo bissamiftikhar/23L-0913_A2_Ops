@@ -1,5 +1,5 @@
 Request #,File Name,Status,Verdict,Confidence (%),Raw Score,Roundtrip Latency (ms),Serving Model
-1,ai_generated_diffusion_art.png,200 OK,Real Image,58.76,0.4124,44.92,VisionGuard-MobileNetV2-v2@champion
-2,ai_generated_surreal_face.jpg,200 OK,AI-Generated,60.98,0.6098,31.77,VisionGuard-MobileNetV2-v2@champion
-3,real_landscape_photo.jpg,200 OK,AI-Generated,54.43,0.5443,31.82,VisionGuard-MobileNetV2-v2@champion
-4,real_portrait_sample.jpg,200 OK,Real Image,66.73,0.3327,31.86,VisionGuard-MobileNetV2-v2@champion
+1,image34.jpg,200 OK,AI-Generated,74.0,0.74,43.75,VisionGuard-MobileNetV2-v2@champion
+2,young-girl-holding-chaffinch-upton-house-1336611.jpg,200 OK,AI-Generated,75.78,0.7578,56.24,VisionGuard-MobileNetV2-v2@champion
+3,Fotor-AI-portrait-generator-interface.jpg,200 OK,AI-Generated,94.99,0.9499,33.62,VisionGuard-MobileNetV2-v2@champion
+4,panoramic-abstract-mountain-scenery-in-flat-style-natural-wallpaper-ai-generated-image-photo.jpg,200 OK,AI-Generated,88.71,0.8871,54.23,VisionGuard-MobileNetV2-v2@champion

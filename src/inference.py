@@ -127,3 +127,4 @@ if __name__ == "__main__":
     print(f"Confidence : {res_ai['confidence']}% (Raw: {res_ai['raw_score']})")
     print(f"Latency    : {res_ai['latency_ms']} ms")
     print("=" * 70)
+

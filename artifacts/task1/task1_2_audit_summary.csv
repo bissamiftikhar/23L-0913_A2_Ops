@@ -1,0 +1,4 @@
+Class,Total Files,Valid Files,Corrupt Files,Exact Duplicates (SHA-256),Width Min,Width Median,Width Max,Height Min,Height Median,Height Max,Size (KB) Min,Size (KB) Median,Size (KB) Max
+ai_generated,538,538,0,1,225,1028.5,6000,135,800.0,4001,11.46,195.12,5494.32
+real,435,435,0,0,183,940.0,8495,158,720.0,7091,11.05,141.58,9956.4
+ALL (Total),973,973,0,1,183,1024.0,8495,135,768.0,7091,11.05,165.44,9956.4

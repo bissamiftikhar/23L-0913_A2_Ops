@@ -1,0 +1,132 @@
+==============================================================================
+TASK 1.4: DATA VERSION CONTROL (DVC) — TOY PART & PROJECT APPLICATION
+Student: Bissam Iftikhar (23L-0913) | Project: 23L-0913_A2_Ops
+Date   : 2026-11-09 02:17:08 PKT
+User   : bissamiftikhar@Bissams-MacBook-Air.local
+==============================================================================
+
+>>> [1] Initialising Toy Git + DVC repository in /tmp/23L-0913_dvc_toy_lab
+Initialized empty Git repository in /private/tmp/23L-0913_dvc_toy_lab/.git/
+Initialized DVC repository.
+
+You can now commit the changes to git.
+
++---------------------------------------------------------------------+
+|                                                                     |
+|        DVC has enabled anonymous aggregate usage analytics.         |
+|     Read the analytics documentation (and how to opt-out) here:     |
+|             <https://dvc.org/doc/user-guide/analytics>              |
+|                                                                     |
++---------------------------------------------------------------------+
+
+What's next?
+------------
+- Check out the documentation: <https://dvc.org/doc>
+- Get help and share ideas: <https://dvc.org/chat>
+- Star us on GitHub: <https://github.com/treeverse/dvc>
+[main (root-commit) 22c2e3e] chore: initialize Git and DVC in toy lab (23L-0913)
+ 3 files changed, 6 insertions(+)
+ create mode 100644 .dvc/.gitignore
+ create mode 100644 .dvc/config
+ create mode 100644 .dvcignore
+
+>>> [2] Creating v1 of samples.csv (3 rows) and tracking with DVC
+
+To track the changes with git, run:
+
+	git add .gitignore samples.csv.dvc
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+--- Contents of samples.csv.dvc (v1) ---
+outs:
+- md5: 7a7b1a19a5f9125287b9853edb98c075
+  size: 112
+  hash: md5
+  path: samples.csv
+[main e72c153] data(v1): track initial samples.csv (3 rows) with DVC
+ 2 files changed, 6 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 samples.csv.dvc
+
+>>> [3] Modifying samples.csv (v2: adding 2 new rows) and committing second version
+
+To track the changes with git, run:
+
+	git add samples.csv.dvc
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+--- Contents of samples.csv.dvc (v2) ---
+outs:
+- md5: aaffa65221f7a52043b25fd9c52a91b8
+  size: 174
+  hash: md5
+  path: samples.csv
+[main 31d8554] data(v2): update samples.csv to 5 rows and track new DVC hash
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+>>> [4] Git commit history of Toy DVC repository:
+31d8554 (HEAD -> main, tag: v2.0) data(v2): update samples.csv to 5 rows and track new DVC hash
+e72c153 (tag: v1.0) data(v1): track initial samples.csv (3 rows) with DVC
+22c2e3e chore: initialize Git and DVC in toy lab (23L-0913)
+
+>>> [5] Configuring remote storage, pushing all versions, deleting local cache/data, and pulling back:
+Setting 'toy_remote' as a default remote.
+[main ce3f0f4] chore: configure DVC remote storage
+ 1 file changed, 6 insertions(+)
+WARNING: failed to collect '31d8554bc9a4186572c88162156f61464b5b93f6', skipping
+WARNING: failed to collect 'e72c153e2f4c94d21bacd0a7a6c27340c99422b1', skipping
+WARNING: failed to collect '22c2e3eaf4d265b526b144d70f5dc0032ef8c7d5', skipping
+1 file pushed
+--- Remote storage tree after dvc push ---
+/tmp/23L-0913_dvc_toy_remote/files/md5/aa/ffa65221f7a52043b25fd9c52a91b8
+
+>>> [6] Returning to older version (v1.0) using git checkout + dvc checkout:
+Updated 1 path from 3839cb0
+M       samples.csv
+--- Contents of samples.csv after checking out v1.0 (back to 3 rows!) ---
+image_id,class,width,height
+img_001.jpg,real,1024,768
+img_002.jpg,ai_generated,512,512
+img_003.jpg,real,800,600
+
+>>> [7] Returning to v2.0, deleting local data & DVC cache, and pulling back from remote:
+Updated 1 path from 1e2a111
+Local samples.csv exists? NO
+A       samples.csv
+1 file fetched and 1 file added
+After 'dvc pull', local samples.csv restored:
+image_id,class,width,height
+img_001.jpg,real,1024,768
+img_002.jpg,ai_generated,512,512
+img_003.jpg,real,800,600
+img_004.jpg,ai_generated,1024,1024
+img_005.jpg,real,1920,1080
+
+==============================================================================
+>>> [8] APPLYING DVC TO VISIONGUARD DATASET FOLDER (data/raw)
+==============================================================================
+Initialized empty Git repository in /Users/bissamiftikhar/Documents/Sudo Desktop/MLOPS_ASS2/.git/
+Initialized DVC repository.
+
+You can now commit the changes to git.
+
++---------------------------------------------------------------------+
+|                                                                     |
+|        DVC has enabled anonymous aggregate usage analytics.         |
+|     Read the analytics documentation (and how to opt-out) here:     |
+|             <https://dvc.org/doc/user-guide/analytics>              |
+|                                                                     |
++---------------------------------------------------------------------+
+
+What's next?
+------------
+- Check out the documentation: <https://dvc.org/doc>
+- Get help and share ideas: <https://dvc.org/chat>
+- Star us on GitHub: <https://github.com/treeverse/dvc>
+Setting 'local_storage' as a default remote.
+>>> Running 'dvc add data/raw'...
+ERROR: stage working dir '/Users/bissamiftikhar/Documents/Sudo Desktop/MLOPS_ASS2/data' does not exist

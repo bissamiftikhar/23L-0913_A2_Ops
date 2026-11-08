@@ -1,0 +1,6 @@
+{
+  "unfreeze_layers": "top_15",
+  "dense_units": 64,
+  "dropout_rate": 0.35,
+  "learning_rate": 0.0005
+}

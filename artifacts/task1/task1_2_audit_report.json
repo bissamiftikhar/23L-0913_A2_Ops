@@ -1,0 +1,86 @@
+{
+  "total_files": 973,
+  "valid_files": 973,
+  "corrupt_files": 0,
+  "corrupt_file_list": [],
+  "exact_duplicates": 1,
+  "duplicate_pairs_count": 2,
+  "color_modes": {
+    "L": {
+      "ai_generated": 1,
+      "real": 6
+    },
+    "P": {
+      "ai_generated": 14,
+      "real": 9
+    },
+    "RGB": {
+      "ai_generated": 488,
+      "real": 406
+    },
+    "RGBA": {
+      "ai_generated": 35,
+      "real": 14
+    }
+  },
+  "formats": {
+    "JPEG": {
+      "ai_generated": 428,
+      "real": 402
+    },
+    "PNG": {
+      "ai_generated": 110,
+      "real": 33
+    }
+  },
+  "summary_table": [
+    {
+      "Class": "ai_generated",
+      "Total Files": 538,
+      "Valid Files": 538,
+      "Corrupt Files": 0,
+      "Exact Duplicates (SHA-256)": 1,
+      "Width Min": 225,
+      "Width Median": 1028.5,
+      "Width Max": 6000,
+      "Height Min": 135,
+      "Height Median": 800.0,
+      "Height Max": 4001,
+      "Size (KB) Min": 11.46,
+      "Size (KB) Median": 195.12,
+      "Size (KB) Max": 5494.32
+    },
+    {
+      "Class": "real",
+      "Total Files": 435,
+      "Valid Files": 435,
+      "Corrupt Files": 0,
+      "Exact Duplicates (SHA-256)": 0,
+      "Width Min": 183,
+      "Width Median": 940.0,
+      "Width Max": 8495,
+      "Height Min": 158,
+      "Height Median": 720.0,
+      "Height Max": 7091,
+      "Size (KB) Min": 11.05,
+      "Size (KB) Median": 141.58,
+      "Size (KB) Max": 9956.4
+    },
+    {
+      "Class": "ALL (Total)",
+      "Total Files": 973,
+      "Valid Files": 973,
+      "Corrupt Files": 0,
+      "Exact Duplicates (SHA-256)": 1,
+      "Width Min": 183,
+      "Width Median": 1024.0,
+      "Width Max": 8495,
+      "Height Min": 135,
+      "Height Median": 768.0,
+      "Height Max": 7091,
+      "Size (KB) Min": 11.05,
+      "Size (KB) Median": 165.44,
+      "Size (KB) Max": 9956.4
+    }
+  ]
+}

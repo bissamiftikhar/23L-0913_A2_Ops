@@ -1,0 +1,11 @@
+Image Index,File,True Label,Predicted Label,AI Probability,Hypothesis
+1,image34.jpg,Real,AI,0.74,Photorealistic AI rendering with skin sub-surface scattering that mimics authentic digital camera sensor noise.
+2,young-girl-holding-chaffinch-upton-house-1336611.jpg,Real,AI,0.7578,Heavy compression artifacts and low spatial frequency blur in real image obscuring camera sensor characteristics.
+3,images39.jpg,Real,AI,0.8734,Smooth cartoon / digital illustration texture in real artwork resembling Midjourney stylistic brush patterns.
+4,85220_africa-21787_1920.rev.1600192341.jpg,Real,AI,0.5218,Watermark / signature text near border creating anomalous high-frequency gradient features.
+5,mammoth.jpg,Real,AI,0.8539,High depth-of-field bokeh blurring background details into uniform synthetic-like diffusion regions.
+6,Mother_sea_otter_with_sleeping_pup.jpeg,Real,AI,0.4403,Over-saturated HDR color grading in real landscape photo resembling generative saturation bias.
+7,macron-rev.jpg,AI,Real,0.2681,Subtle hand / limb asymmetry in generated portrait overlooked at 224x224 input resolution.
+8,GANimal-1280x540.jpg,AI,Real,0.2967,Extreme macro zoom texture causing loss of global structural coherence.
+9,bear-painting-abstract-animal-art-kent-paulette.jpg,Real,AI,0.8864,Low dynamic range lighting with crushed blacks misleading convolutional kernel activations.
+10,landscapes.png,AI,Real,0.1767,Unusual aspect ratio cropping compressing critical perimeter boundary artifacts.

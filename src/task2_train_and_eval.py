@@ -474,3 +474,4 @@ if __name__ == "__main__":
     train_baseline_pipeline(batch_size=32, epochs=4)
     train_transfer_mobilenetv2_pipeline(batch_size=32, stage1_epochs=3, stage2_epochs=3)
     evaluate_models_and_generate_artifacts()
+

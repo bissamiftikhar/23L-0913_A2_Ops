@@ -1,0 +1,7 @@
+run_name,backbone,lr,img_size,augmentation,frozen_layers,accuracy,f1_score,roc_auc,val_loss
+Run1_Baseline_CNN_Standard,Baseline CNN,0.001,224,True,N/A (Scratch),0.842,0.8385,0.912,0.385
+Run2_Baseline_CNN_High_LR,Baseline CNN,0.003,224,True,N/A (Scratch),0.795,0.789,0.865,0.472
+Run3_Baseline_CNN_NoAug,Baseline CNN,0.001,224,False,N/A (Scratch),0.811,0.804,0.884,0.441
+Run4_MobileNetV2_160x160,MobileNetV2,0.001,160,True,All Frozen,0.884,0.881,0.941,0.298
+Run5_MobileNetV2_FrozenBase,MobileNetV2,0.001,224,True,All Frozen (155 layers),0.906,0.904,0.961,0.245
+Run6_Champion_MobileNetV2_FineTuned,MobileNetV2,1e-05,224,True,Top 15 Unfrozen (block 16),0.948,0.9472,0.9855,0.158
