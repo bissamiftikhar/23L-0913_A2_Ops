@@ -1,0 +1,2 @@
+completed	success	fix(ci): correct assertion to produce passing green run	Toy CI Matrix	main	push	42525215655	10s	2026-11-08T21:26:30Z
+completed	failure	ci: add matrix workflow and deliberate failing test (red run)	Toy CI Matrix	main	push	42525194155	10s	2026-11-08T21:26:15Z

@@ -22,20 +22,18 @@ Validation & Security Policies (Task 4.2):
 
 import os
 import io
-import sys
-from pathlib import Path
 
 from flask import (
-    Flask, render_template, request, jsonify, redirect, url_for, flash
+    Flask, render_template, request, jsonify, flash
 )
 from werkzeug.utils import secure_filename
-from PIL import Image, UnidentifiedImageError
+from PIL import Image
 from dotenv import load_dotenv
-
-load_dotenv()
 
 from src.inference import predict_image, get_model, MODEL_VERSION, DEFAULT_THRESHOLD
 from src.models_db import init_db, log_prediction, get_all_logs, get_db_connection
+
+load_dotenv()
 
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
@@ -116,7 +114,7 @@ def predict():
     stream = io.BytesIO(file_bytes)
     try:
         validate_image_stream(stream)
-    except ValueError as ve:
+    except ValueError:
         err_msg = f"Image validation failed: The file '{clean_filename}' appears corrupted or cannot be decoded."
         return render_template("error.html", error_title="Corrupt Image", error_message=err_msg), 400
 

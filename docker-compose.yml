@@ -3,8 +3,6 @@
 # Student: Bissam Iftikhar (23L-0913) | Project: 23L-0913_A2_Ops
 # ==============================================================================
 
-version: '3.8'
-
 services:
   db:
     image: postgres:16-alpine

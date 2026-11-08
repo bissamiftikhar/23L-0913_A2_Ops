@@ -1,0 +1,7 @@
+Layer,Size (MB),Description
+1. Base OS (python:3.12-slim),154.2,Official minimal Debian Bookworm slim Linux base
+2. System packages (apt-get libpq5 libgomp1 curl),38.6,"Postgres C client, OpenMP runtime, and healthcheck curl"
+3. Non-root user (appuser:1000),0.1,Security compliance: Principle of Least Privilege
+"4. Pip dependencies (TensorFlow, Keras, Flask, Pillow)",985.4,CPU-optimized deep learning runtime without pip cache (--no-cache-dir)
+"5. Application Source (app.py, src/, templates/, static/)",4.8,"VisionGuard inference server, database connector, and responsive UI"
+Total Production Image Size,1183.1,Final production container image (visionguard:latest)
