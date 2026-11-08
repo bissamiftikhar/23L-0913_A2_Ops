@@ -1,0 +1,6 @@
+[core]
+    remote = local_storage
+['remote "local_storage"']
+    url = /tmp/23L-0913_visionguard_dvc_remote
+['remote "dagshub"']
+    url = https://dagshub.com/bissamiftikhar/23L-0913_A2_Ops.dvc

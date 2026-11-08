@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="history-page">
+    <div class="history-header">
+        <div>
+            <h1 class="page-title">Database Audit Trail (Task 5)</h1>
+            <p class="page-subtitle">Permanent, queryable record of all image authentication requests, verdicts, confidences, and model versions.</p>
+        </div>
+        <div class="history-stats">
+            <span class="stat-pill">Total Logged Queries: <strong>{{ total_count }}</strong></span>
+            <a href="/" class="btn-primary-sm">+ New Analysis</a>
+        </div>
+    </div>
+
+    <div class="history-table-wrapper">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Timestamp (UTC)</th>
+                    <th>File Name</th>
+                    <th>Verdict</th>
+                    <th>Confidence</th>
+                    <th>Raw Score</th>
+                    <th>Threshold</th>
+                    <th>Latency</th>
+                    <th>Model Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if logs %}
+                    {% for row in logs %}
+                    <tr>
+                        <td class="cell-id">#{{ row['id'] }}</td>
+                        <td class="cell-time">{{ row['timestamp_utc'] }}</td>
+                        <td class="cell-filename"><code>{{ row['filename'] }}</code></td>
+                        <td>
+                            <span class="badge {% if row['prediction_label'] == 'AI-Generated' %}badge-ai{% else %}badge-real{% endif %}">
+                                {{ row['prediction_label'] }}
+                            </span>
+                        </td>
+                        <td class="cell-conf"><strong>{{ row['confidence'] }}%</strong></td>
+                        <td class="cell-raw"><code>{{ row['raw_score'] }}</code></td>
+                        <td class="cell-thresh">{{ row['decision_threshold'] }}</td>
+                        <td class="cell-latency">{{ row['latency_ms'] }} ms</td>
+                        <td class="cell-model"><code>{{ row['model_version'] }}</code></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="no-records">No predictions logged in the database yet. Run an analysis from the home page.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+name: VisionGuard CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    name: Lint & Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          # Install CPU-optimized requirements for CI runner
+          pip install tensorflow-cpu pillow flask gunicorn python-dotenv scikit-learn requests
+
+      - name: Lint Code with Flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv,venv,data
+          # exit-zero treats all errors as warnings
+          flake8 . --count --exit-zero --max-complexity=15 --max-line-length=127 --statistics --exclude=.venv,venv,data
+
+      - name: Run Pytest Suite
+        run: |
+          pytest tests/ -v
+
+  build-docker:
+    name: Build & Verify Docker Image
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build VisionGuard Docker Image
+        run: |
+          docker build -t visionguard:latest .
+
+      - name: Verify Docker Container Startup & Healthcheck
+        run: |
+          docker run -d --name test_vg -p 5001:5001 -e DATABASE_URL=sqlite:///test.db visionguard:latest
+          sleep 10
+          docker ps
+          curl -f http://localhost:5001/health || exit 1
+          docker stop test_vg

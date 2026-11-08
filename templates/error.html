@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-card">
+        <div class="error-icon">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#d7191c" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <h1 class="error-title">{{ error_title }}</h1>
+        <p class="error-message">{{ error_message }}</p>
+        <div class="error-reasons">
+            <h4>Common Causes & Validation Policies:</h4>
+            <ul>
+                <li><strong>Unsupported Extension:</strong> Only <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, and <code>.webp</code> are accepted.</li>
+                <li><strong>File Size Limit:</strong> Files larger than 10 MB are rejected.</li>
+                <li><strong>Corrupted Bytes:</strong> Files with invalid headers or unreadable byte streams fail server-side verification.</li>
+            </ul>
+        </div>
+        <div class="error-actions">
+            <a href="/" class="btn-primary">Return to Upload</a>
+            <a href="/history" class="btn-secondary">View History</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

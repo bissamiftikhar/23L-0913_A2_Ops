@@ -1,0 +1,39 @@
+# Python & Virtual Environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Secrets & Environment Variables
+.env
+*.env
+!.env.example
+
+# DVC & Large Data (tracked via .dvc pointer files)
+/data/raw
+/data/splits/*.tfrecord
+/dvc_remote_local/
+
+# MLflow local runs & Keras Tuner trials
+mlruns/
+mlartifacts/
+mlflow.db
+keras_tuner_dir/
+toy_tuner_dir/
+
+# Local SQLite database (runtime state)
+instance/
+*.db
+*.sqlite3
+
+# macOS & IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Toy labs temporary dirs
+/dvc_toy_lab/
+/ci_toy_repo/
+

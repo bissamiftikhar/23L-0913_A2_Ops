@@ -1,0 +1,62 @@
+# ==============================================================================
+# VisionGuard Docker Compose Stack (Task 6.3)
+# Student: Bissam Iftikhar (23L-0913) | Project: 23L-0913_A2_Ops
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: visionguard_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-visionguard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vg_secure_pass_23L0913}
+      POSTGRES_DB: ${POSTGRES_DB:-visionguard_db}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - visionguard_internal
+    # CRITICAL: NO ports published to the host outside world (secure isolated database)
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-visionguard} -d ${POSTGRES_DB:-visionguard_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: visionguard_web
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5001}:5001"
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-visionguard}:${POSTGRES_PASSWORD:-vg_secure_pass_23L0913}@db:5432/${POSTGRES_DB:-visionguard_db}
+      MODEL_PATH: /app/models/champion_model.keras
+      DECISION_THRESHOLD: ${DECISION_THRESHOLD:-0.50}
+      MODEL_VERSION: ${MODEL_VERSION:-VisionGuard-MobileNetV2-v2@champion}
+      FLASK_DEBUG: 0
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-vg_secret_compose_key}
+    volumes:
+      # Model reaches container via mounted read-only volume for fast updates without rebuilds
+      - ./models:/app/models:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - visionguard_internal
+
+networks:
+  visionguard_internal:
+    driver: bridge
+    name: visionguard_network
+
+volumes:
+  pgdata:
+    name: visionguard_pgdata

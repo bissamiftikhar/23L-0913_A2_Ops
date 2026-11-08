@@ -1,0 +1,37 @@
+# VisionGuard .dockerignore
+# Keeps secrets, data, virtual environments, and caches out of the Docker image
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets (CRITICAL)
+.env
+*.env
+!.env.example
+
+# Raw large image data & DVC caches
+data/raw/
+dvc_remote_local/
+.dvc/cache/
+
+# MLflow runs and Keras tuner trial folders
+mlruns/
+keras_tuner_dir/
+toy_tuner_dir/
+
+# Local databases
+*.db
+*.sqlite3
+instance/
+
+# Git & CI
+.git/
+.github/
+
+# Markdown report & scratch
+*.pdf
+artifacts/
+report/

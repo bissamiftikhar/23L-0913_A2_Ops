@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VisionGuard | AI vs Real Image Detector{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <span class="brand-badge">23L-0913</span>
+                <span class="brand-title">VisionGuard</span>
+                <span class="brand-sub">MLOps Production System</span>
+            </a>
+            <nav class="nav-links">
+                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Analyze</a>
+                <a href="/history" class="nav-link {% if request.path == '/history' %}active{% endif %}">Audit Trail</a>
+                <a href="/health" target="_blank" class="nav-pill status-pill">System Health</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p><strong>VisionGuard MLOps Deployment</strong> &bull; Assignment 2 (100 Marks)</p>
+            <p>Student: <strong>Bissam Iftikhar</strong> (Roll No: <strong>23L-0913</strong>) &bull; Project: <code>23L-0913_A2_Ops</code></p>
+            <p class="footer-meta">Connected to DagsHub &bull; Model Registry: <code>VisionGuard-MobileNetV2-v2@champion</code></p>
+        </div>
+    </footer>
+</body>
+</html>

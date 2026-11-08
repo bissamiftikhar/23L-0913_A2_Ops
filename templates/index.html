@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-badge">Deep Learning Image Authenticity Classifier</div>
+    <h1 class="hero-heading">Detect AI-Generated vs Real Images in Real Time</h1>
+    <p class="hero-subtext">
+        Powered by a fine-tuned MobileNetV2 architecture with training discipline, 
+        containerized with Docker Compose, tracked via MLflow on DagsHub, and backed by an immutable database audit trail.
+    </p>
+</div>
+
+<div class="card-container">
+    <div class="upload-card">
+        <div class="card-header">
+            <h2>Upload Image for Inspection</h2>
+            <span class="header-pill">Zero Disk Retention</span>
+        </div>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="dropzone" id="dropzone">
+                <input type="file" name="image" id="fileInput" accept=".png,.jpg,.jpeg,.webp" required>
+                <div class="dropzone-content">
+                    <div class="upload-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <p class="dropzone-title">Drag & drop your image here, or <span>browse files</span></p>
+                    <p class="dropzone-hint">Supports PNG, JPG, JPEG, WEBP up to 10 MB</p>
+                    <div id="filePreviewName" class="file-preview-name"></div>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label for="thresholdInput">Decision Threshold: <span id="thresholdValue">{{ threshold }}</span></label>
+                    <input type="range" name="threshold" id="thresholdInput" min="0.10" max="0.90" step="0.05" value="{{ threshold }}">
+                    <span class="input-hint">Probability &ge; threshold is classified as AI-Generated</span>
+                </div>
+                <div class="setting-item">
+                    <label>Active Champion Model</label>
+                    <div class="model-tag"><code>{{ model_version }}</code></div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>Run VisionGuard Inference</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <div class="info-sidebar">
+        <div class="sidebar-block">
+            <h3>Verification Pipeline</h3>
+            <ul class="feature-list">
+                <li><span class="dot green"></span><strong>MIME & Magic Byte Verification:</strong> Rejects spoofed or corrupted images.</li>
+                <li><span class="dot blue"></span><strong>In-Memory Processing:</strong> Uploaded bytes are never written to host disk.</li>
+                <li><span class="dot purple"></span><strong>Permanent Audit Log:</strong> Logs every prediction, confidence, model version, and latency into SQL.</li>
+            </ul>
+        </div>
+        <div class="sidebar-block tech-specs">
+            <h3>System Specifications</h3>
+            <div class="spec-row"><span>Student Roll</span><strong>23L-0913</strong></div>
+            <div class="spec-row"><span>Image Size</span><strong>224 &times; 224 RGB</strong></div>
+            <div class="spec-row"><span>Input Scaling</span><strong>[-1.0, 1.0]</strong></div>
+            <div class="spec-row"><span>Orchestration</span><strong>Docker Compose</strong></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('filePreviewName');
+    const dropzone = document.getElementById('dropzone');
+    const thresholdInput = document.getElementById('thresholdInput');
+    const thresholdValue = document.getElementById('thresholdValue');
+
+    thresholdInput.addEventListener('input', (e) => {
+        thresholdValue.textContent = parseFloat(e.target.value).toFixed(2);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if (fileInput.files.length > 0) {
+            const f = fileInput.files[0];
+            preview.textContent = `Selected: ${f.name} (${(f.size / 1024).toFixed(1)} KB)`;
+            preview.style.display = 'block';
+        }
+    });
+
+    ['dragenter', 'dragover'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+            e.preventDefault();
+            dropzone.classList.add('drag-active');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('drag-active');
+        });
+    });
+</script>
+{% endblock %}
