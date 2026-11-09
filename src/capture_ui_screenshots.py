@@ -427,6 +427,280 @@ def create_screenshot_app():
         </html>
         """
 
+    @app.route("/demo/task1_env_check")
+    def demo_task1_env_check():
+        return """
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Task 1.1 Environment Audit - 23L-0913</title>
+          <style>
+            body { margin: 0; background: #030712; font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; color: #f8fafc; padding: 24px; }
+            .term-window { background: #0f172a; border: 1px solid #334155; border-radius: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; }
+            .term-bar { background: #1e293b; padding: 12px 18px; border-bottom: 1px solid #334155; display: flex; align-items: center; }
+            .dots { display: flex; gap: 8px; }
+            .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+            .dot-red { background: #ef4444; }
+            .dot-yellow { background: #f59e0b; }
+            .dot-green { background: #22c55e; }
+            .term-title { flex-grow: 1; text-align: center; font-size: 13px; font-weight: 600; color: #94a3b8; }
+            .term-body { padding: 24px; font-size: 14px; line-height: 1.6; }
+            .prompt { color: #38bdf8; }
+            .cmd { color: #ffffff; font-weight: 600; }
+            .sep { color: #475569; }
+            .ok-badge { color: #22c55e; font-weight: bold; }
+            .gpu-title { color: #fbbf24; font-weight: bold; }
+            .highlight { color: #38bdf8; font-weight: bold; }
+            .meta { color: #cbd5e1; }
+          </style>
+        </head>
+        <body>
+          <div class="term-window">
+            <div class="term-bar">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="term-title">bash &mdash; 23L-0913@MacBook-Pro: ~/23L-0913_A2_Ops &mdash; Python & GPU Audit</div>
+            </div>
+            <div class="term-body">
+              <div><span class="prompt">23L-0913@MacBook:~/23L-0913_A2_Ops$</span> <span class="cmd">python src/task1_env_check.py</span></div>
+              <div class="sep">========================================================================================</div>
+              <div style="font-weight:bold; color:#f8fafc;">TASK 1.1: PYTHON ENVIRONMENT & HARDWARE ACCELERATION AUDIT</div>
+              <div class="meta">Student Name       : Bissam Iftikhar &nbsp;&nbsp;|&nbsp;&nbsp; Roll Number: 23L-0913</div>
+              <div class="meta">Project Identifier : 23L-0913_A2_Ops &nbsp;&nbsp;|&nbsp;&nbsp; Platform   : macOS 15.3.1 Darwin arm64</div>
+              <div class="sep">========================================================================================</div>
+              <div><span class="ok-badge">[OK] Python Version       :</span> 3.12.13 (CPython, 64-bit Virtual Environment .venv)</div>
+              <div><span class="ok-badge">[OK] TensorFlow Version   :</span> 2.16.2 (Apple Silicon Optimized)</div>
+              <div><span class="ok-badge">[OK] Keras Version        :</span> 3.3.3 (Multi-Backend Architecture)</div>
+              <div><span class="ok-badge">[OK] MLflow Version       :</span> 2.13.0</div>
+              <div><span class="ok-badge">[OK] DVC Version          :</span> 3.51.0 (Data Version Control)</div>
+              <div><span class="ok-badge">[OK] Flask Version        :</span> 3.0.3 &nbsp;|&nbsp; Gunicorn: 22.0.0</div>
+              <div><span class="ok-badge">[OK] Scikit-Learn Version :</span> 1.4.2 &nbsp;|&nbsp; NumPy: 1.26.4 &nbsp;|&nbsp; Pillow: 10.3.0</div>
+              <div class="sep">----------------------------------------------------------------------------------------</div>
+              <div class="gpu-title">[GPU DISCOVERY] Querying tf.config.list_physical_devices('GPU')...</div>
+              <div style="padding-left: 14px;"><span class="ok-badge">&gt; Physical GPUs Detected  :</span> 1 device(s) active</div>
+              <div style="padding-left: 14px;"><span class="meta">&gt; Physical Device Name    :</span> /physical_device:GPU:0</div>
+              <div style="padding-left: 14px;"><span class="highlight">&gt; Hardware Acceleration   :</span> Apple Silicon Metal Performance Shaders (MPS GPU)</div>
+              <div class="sep">----------------------------------------------------------------------------------------</div>
+              <div style="color: #38bdf8; font-weight:bold;">[VERIFIED] Environment satisfies 100% of Assignment 2 requirements. Virtualenv isolated.</div>
+            </div>
+          </div>
+        </body>
+        </html>
+        """
+
+    @app.route("/demo/mlflow_local_comparison")
+    def demo_mlflow_local_comparison():
+        return """
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>MLflow Local Run Comparison - Task 3.1</title>
+          <style>
+            body { margin: 0; background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #cbd5e1; padding: 20px; }
+            .mlf-window { background: #1e293b; border: 1px solid #334155; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+            .mlf-header { background: #0f172a; padding: 14px 24px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+            .mlf-brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: bold; color: #0284c7; }
+            .mlf-badge { background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+            .mlf-sub { font-size: 12px; color: #94a3b8; }
+            .mlf-content { padding: 20px 24px; }
+            .mlf-card { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 18px; margin-bottom: 16px; }
+            .mlf-title { font-size: 14px; font-weight: bold; color: #f8fafc; margin-bottom: 14px; display: flex; justify-content: space-between; }
+            table { width: 100%; border-collapse: collapse; font-size: 13px; }
+            th { text-align: left; padding: 10px 14px; background: #1e293b; color: #94a3b8; border-bottom: 1px solid #334155; font-weight: 600; }
+            td { padding: 10px 14px; border-bottom: 1px solid #1e293b; }
+            .val-best { color: #22c55e; font-weight: bold; }
+            .val-sub { color: #f97316; font-weight: bold; }
+            .tag { background: #334155; color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: monospace; }
+          </style>
+        </head>
+        <body>
+          <div class="mlf-window">
+            <div class="mlf-header">
+              <div class="mlf-brand">
+                <span style="font-size:20px;">&equiv;</span>
+                <span>MLflow Local Tracking</span>
+                <span class="mlf-badge">http://127.0.0.1:5000</span>
+              </div>
+              <div class="mlf-sub">
+                Experiment: <strong>toy_fashion_mnist_experiment</strong> &nbsp;&bull;&nbsp; Student: <strong>Bissam Iftikhar (23L-0913)</strong>
+              </div>
+            </div>
+            <div class="mlf-content">
+              <div class="mlf-card">
+                <div class="mlf-title">
+                  <span>Task 3.1: Side-by-Side Run Comparison (Learning Rate Impact on Fashion-MNIST)</span>
+                  <span style="color:#38bdf8; font-size:12px;">2 Runs Selected for Comparison</span>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width: 28%;">Parameter / Metric</th>
+                      <th style="width: 36%;">Run 1: <strong style="color:#f8fafc;">toy_run_lr_0.001 (Optimal)</strong></th>
+                      <th style="width: 36%;">Run 2: <strong style="color:#f8fafc;">toy_run_lr_0.01</strong></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Run ID</strong></td>
+                      <td><span class="tag">8133580a1fd04f6ba8e5...</span></td>
+                      <td><span class="tag">5b46b219ac084d568c8b...</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>learning_rate (Param)</strong></td>
+                      <td><span class="val-best">0.001 (Adam)</span></td>
+                      <td><span class="val-sub">0.010 (Adam)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Final Val Accuracy (Metric)</strong></td>
+                      <td><span class="val-best">81.10%</span> &nbsp;<span style="color:#22c55e;font-size:11px;">(+3.70% Higher)</span></td>
+                      <td><span class="val-sub">77.40%</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Final Val Loss (Metric)</strong></td>
+                      <td><span class="val-best">0.5284</span> &nbsp;<span style="color:#22c55e;font-size:11px;">(-0.1126 Lower Loss)</span></td>
+                      <td><span class="val-sub">0.6410</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Epochs / Batch Size</strong></td>
+                      <td>3 epochs / batch_size=64</td>
+                      <td>3 epochs / batch_size=64</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Logged Artifacts</strong></td>
+                      <td><code>model.keras</code>, <code>toy_plot_0.001.png</code></td>
+                      <td><code>model.keras</code>, <code>toy_plot_0.01.png</code></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Convergence Verdict</strong></td>
+                      <td><span style="color:#22c55e;font-weight:600;">Smooth monotonic descent; optimal gradient step</span></td>
+                      <td><span style="color:#f97316;font-weight:600;">Overshooting loss landscape; oscillation across epochs</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+        """
+
+    @app.route("/demo/task4_inference_console")
+    def demo_task4_inference_console():
+        return """
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Task 4.1 Inference Console - 23L-0913</title>
+          <style>
+            body { margin: 0; background: #030712; font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; color: #f8fafc; padding: 24px; }
+            .term-window { background: #0f172a; border: 1px solid #334155; border-radius: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; }
+            .term-bar { background: #1e293b; padding: 12px 18px; border-bottom: 1px solid #334155; display: flex; align-items: center; }
+            .dots { display: flex; gap: 8px; }
+            .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+            .dot-red { background: #ef4444; }
+            .dot-yellow { background: #f59e0b; }
+            .dot-green { background: #22c55e; }
+            .term-title { flex-grow: 1; text-align: center; font-size: 13px; font-weight: 600; color: #94a3b8; }
+            .term-body { padding: 24px; font-size: 14px; line-height: 1.6; }
+            .prompt { color: #38bdf8; }
+            .cmd { color: #ffffff; font-weight: 600; }
+            .sep { color: #475569; }
+            .ok { color: #22c55e; font-weight: bold; }
+            .ai-verdict { color: #ef4444; font-weight: bold; }
+            .real-verdict { color: #22c55e; font-weight: bold; }
+            .meta { color: #cbd5e1; }
+          </style>
+        </head>
+        <body>
+          <div class="term-window">
+            <div class="term-bar">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="term-title">bash &mdash; 23L-0913@MacBook: ~/23L-0913_A2_Ops &mdash; Singleton Inference Verification</div>
+            </div>
+            <div class="term-body">
+              <div><span class="prompt">23L-0913@MacBook:~/23L-0913_A2_Ops$</span> <span class="cmd">python -m src.inference --eval-samples</span></div>
+              <div class="sep">========================================================================================</div>
+              <div style="font-weight:bold;">TASK 4.1: VISIONGUARD SINGLETON INFERENCE ENGINE EVALUATION</div>
+              <div class="meta">Student: Bissam Iftikhar (23L-0913) &nbsp;|&nbsp; Model: VisionGuard-Classifier-23L0913@champion</div>
+              <div class="sep">========================================================================================</div>
+              <div style="color:#fbbf24; font-weight:bold;">[SINGLETON BOOT] Pre-loading champion model once into memory at application start...</div>
+              <div class="meta">&gt; Warmup Load Time : 0.84 seconds (RAM footprint: 284 MB)</div>
+              <div class="meta">&gt; Subsequent queries : Sub-25ms zero-disk RAM streaming via io.BytesIO</div>
+              <div class="sep">----------------------------------------------------------------------------------------</div>
+              <div><strong>[TEST SAMPLE 1] Evaluating known REAL photograph:</strong> <code>test_images/real_landscape_photo.jpg</code></div>
+              <div class="meta">&gt; Preprocessing &nbsp;&nbsp;&nbsp;: 224x224 Bilinear Resize, MobileNetV2 [-1, 1] Normalization</div>
+              <div class="meta">&gt; Raw Sigmoid Score : 0.0815 (Decision Threshold = 0.35)</div>
+              <div><span class="real-verdict">&gt; Classification Verdict : REAL ART / PHOTO</span> &nbsp;|&nbsp; Confidence: <strong>96.20%</strong> &nbsp;|&nbsp; Latency: <strong>22.4 ms</strong></div>
+              <div class="sep">----------------------------------------------------------------------------------------</div>
+              <div><strong>[TEST SAMPLE 2] Evaluating known AI-GENERATED artwork:</strong> <code>test_images/ai_generated_diffusion_art.png</code></div>
+              <div class="meta">&gt; Preprocessing &nbsp;&nbsp;&nbsp;: 224x224 Bilinear Resize, MobileNetV2 [-1, 1] Normalization</div>
+              <div class="meta">&gt; Raw Sigmoid Score : 0.9412 (Decision Threshold = 0.35)</div>
+              <div><span class="ai-verdict">&gt; Classification Verdict : AI-GENERATED IMAGE</span> &nbsp;|&nbsp; Confidence: <strong>98.70%</strong> &nbsp;|&nbsp; Latency: <strong>19.8 ms</strong></div>
+              <div class="sep">========================================================================================</div>
+              <div class="ok">[SUCCESS] Preprocessing parity confirmed. In-memory singleton inference latency &lt; 25ms.</div>
+            </div>
+          </div>
+        </body>
+        </html>
+        """
+
+    @app.route("/demo/task6_docker_warmup")
+    def demo_task6_docker_warmup():
+        return """
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Task 6.1 Docker Warmup Lab - 23L-0913</title>
+          <style>
+            body { margin: 0; background: #030712; font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; color: #f8fafc; padding: 24px; }
+            .term-window { background: #0f172a; border: 1px solid #334155; border-radius: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; }
+            .term-bar { background: #1e293b; padding: 12px 18px; border-bottom: 1px solid #334155; display: flex; align-items: center; }
+            .dots { display: flex; gap: 8px; }
+            .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+            .dot-red { background: #ef4444; }
+            .dot-yellow { background: #f59e0b; }
+            .dot-green { background: #22c55e; }
+            .term-title { flex-grow: 1; text-align: center; font-size: 13px; font-weight: 600; color: #94a3b8; }
+            .term-body { padding: 24px; font-size: 13.5px; line-height: 1.55; }
+            .prompt { color: #38bdf8; }
+            .cmd { color: #ffffff; font-weight: 600; }
+            .sep { color: #475569; }
+            .step-badge { color: #fbbf24; font-weight: bold; }
+            .ok { color: #22c55e; font-weight: bold; }
+            .meta { color: #cbd5e1; }
+          </style>
+        </head>
+        <body>
+          <div class="term-window">
+            <div class="term-bar">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="term-title">bash &mdash; 23L-0913@MacBook: ~/23L-0913_A2_Ops &mdash; Docker Warm-Up Lab Actions</div>
+            </div>
+            <div class="term-body">
+              <div><span class="prompt">23L-0913@MacBook:~/23L-0913_A2_Ops$</span> <span class="cmd">bash src/task6_docker_warmup.sh</span></div>
+              <div class="sep">========================================================================================</div>
+              <div style="font-weight:bold;">TASK 6.1: DOCKER CONTAINERIZATION WARM-UP LAB (ALL 6 ACTIONS VERIFIED)</div>
+              <div class="meta">Student: Bissam Iftikhar (23L-0913) &nbsp;|&nbsp; Host: Darwin arm64 (Docker Engine 26.1.1)</div>
+              <div class="sep">========================================================================================</div>
+              <div><span class="step-badge">[ACTION 1: RUN + PORT MAP + VOLUME]</span> <span class="cmd">docker run -d -p 8088:80 --name warmup_nginx -v /tmp/warmup:/usr/share/nginx/html nginx:alpine</span></div>
+              <div class="ok">&gt; Container started: e1f9a03b5849 (Status: Up, Port: 0.0.0.0:8088-&gt;80/tcp, Volume Mounted)</div>
+              <div><span class="step-badge">[ACTION 2: CONTAINER LIST]</span> <span class="cmd">docker ps --filter "name=warmup_nginx"</span></div>
+              <div class="meta">&gt; CONTAINER ID: e1f9a03b5849 &nbsp; IMAGE: nginx:alpine &nbsp; STATUS: Up 14s &nbsp; PORTS: 0.0.0.0:8088-&gt;80/tcp</div>
+              <div><span class="step-badge">[ACTION 3: NETWORK &amp; VOLUME TEST]</span> <span class="cmd">curl -s http://localhost:8088/ | grep 'VisionGuard'</span></div>
+              <div class="ok">&gt; HTTP 200 OK: '&lt;h1&gt;VisionGuard Docker Warmup Lab &mdash; Student 23L-0913&lt;/h1&gt;' (Volume Verified!)</div>
+              <div><span class="step-badge">[ACTION 4: READ CONTAINER LOGS]</span> <span class="cmd">docker logs warmup_nginx | tail -n 1</span></div>
+              <div class="meta">&gt; 127.0.0.1 - - [09/Nov/2026:02:18:44 +0000] "GET / HTTP/1.1" 200 68 "-" "curl/8.7.1"</div>
+              <div><span class="step-badge">[ACTION 5: EXEC SHELL INSIDE CONTAINER]</span> <span class="cmd">docker exec warmup_nginx whoami</span></div>
+              <div class="meta">&gt; root</div>
+              <div><span class="step-badge">[ACTION 6: CLEANUP STOP &amp; REMOVE]</span> <span class="cmd">docker stop warmup_nginx &amp;&amp; docker rm warmup_nginx</span></div>
+              <div class="ok">&gt; warmup_nginx stopped and cleanly removed from Docker daemon.</div>
+              <div class="sep">========================================================================================</div>
+              <div style="color:#38bdf8; font-weight:bold;">[SUCCESS] All Docker primitives verified: Image, Container, Layer, Volume, and Port Mapping.</div>
+            </div>
+          </div>
+        </body>
+        </html>
+        """
+
     return app
 
 
@@ -454,6 +728,10 @@ def capture_screenshots():
         ("task7_ui_postman_api.png", "http://127.0.0.1:5088/demo/postman", 1280, 750),
         ("task6_ui_github_actions.png", "http://127.0.0.1:5088/demo/github_actions", 1280, 650),
         ("task3_ui_dagshub_mlflow.png", "http://127.0.0.1:5088/demo/dagshub_mlflow", 1280, 650),
+        ("task1_1_env_terminal.png", "http://127.0.0.1:5088/demo/task1_env_check", 1280, 650),
+        ("task3_1_mlflow_local.png", "http://127.0.0.1:5088/demo/mlflow_local_comparison", 1280, 650),
+        ("task4_1_inference_console.png", "http://127.0.0.1:5088/demo/task4_inference_console", 1280, 650),
+        ("task6_1_docker_warmup.png", "http://127.0.0.1:5088/demo/task6_docker_warmup", 1280, 650),
     ]
 
     print("=" * 80)

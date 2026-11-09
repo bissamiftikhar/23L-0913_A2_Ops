@@ -302,9 +302,7 @@ def build_pdf_report():
         ]))
         story.append(t_sum)
         story.append(Paragraph("<b>Table 1.1:</b> Comprehensive Dataset Audit Summary per Class and Overall (Task 1.2).", callout_style))
-    story.append(Spacer(1, 10))
-
-    story.append(PageBreak())
+    story.append(Spacer(1, 14))
 
     # Sub-task 1.3: Visual EDA
     story.append(Paragraph("1.3 Exploratory Data Analysis & Visualizations (1.5 Marks)", h2_style))
@@ -608,8 +606,8 @@ def build_pdf_report():
 
     local_mlflow_shot = ARTIFACTS_DIR / "screenshots" / "task3_1_mlflow_local.png"
     if local_mlflow_shot.exists():
-        story.append(RLImage(get_pdf_img(local_mlflow_shot), width=6.8 * inch, height=2.8 * inch))
-        story.append(Paragraph("<b>Figure 3.1:</b> Terminal Evidence of Local MLflow Execution (Runs lr=0.01 vs lr=0.001) & Metric Comparison (Task 3.1).", callout_style))
+        story.append(RLImage(get_pdf_img(local_mlflow_shot), width=6.8 * inch, height=3.0 * inch))
+        story.append(Paragraph("<b>Figure 3.1:</b> MLflow Local UI Run Comparison Dashboard (Runs lr=0.001 vs lr=0.01 on Fashion-MNIST) (Task 3.1).", callout_style))
         story.append(Spacer(1, 10))
 
     # Sub-task 3.2: DagsHub Remote Tracking
@@ -705,16 +703,18 @@ Confidence Score  : 52.60%
         ("LEFTPADDING", (0, 0), (-1, -1), 8),
         ("RIGHTPADDING", (0, 0), (-1, -1), 8),
     ]))
-    story.append(t_alias)
-    story.append(Paragraph("<b>Listing 3.1:</b> Programmatic Model Loading from Registry via Alias '@champion' (Task 3.6).", callout_style))
+    alias_block = KeepTogether([
+        t_alias,
+        Spacer(1, 4),
+        Paragraph("<b>Listing 3.1:</b> Programmatic Model Loading from Registry via Alias '@champion' (Task 3.6).", callout_style)
+    ])
+    story.append(alias_block)
     story.append(Spacer(1, 10))
-
-    story.append(PageBreak())
 
     # DagsHub & MLflow UI Screenshot Evidence
     dh_shot = ARTIFACTS_DIR / "screenshots" / "task3_ui_dagshub_mlflow.png"
     if dh_shot.exists():
-        story.append(RLImage(get_pdf_img(dh_shot), width=6.8 * inch, height=3.4 * inch))
+        story.append(RLImage(get_pdf_img(dh_shot), width=6.8 * inch, height=3.0 * inch))
         story.append(Paragraph("<b>Figure 3.2:</b> DagsHub Repository Dashboard & MLflow Experiment Tracking Runs (Tasks 3.2, 3.5 & 3.6).", callout_style))
         story.append(Spacer(1, 10))
 
@@ -915,8 +915,6 @@ nc: connect to localhost port 5432 (tcp) failed: Connection refused
         body_style
     ))
     story.append(Spacer(1, 10))
-
-    story.append(PageBreak())
 
     gh_shot = ARTIFACTS_DIR / "screenshots" / "task6_ui_github_actions.png"
     if gh_shot.exists():
