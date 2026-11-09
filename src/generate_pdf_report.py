@@ -20,7 +20,7 @@ from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Image as RLImage,
-    Table, TableStyle, PageBreak, KeepTogether, HRFlowable
+    Table, TableStyle, PageBreak, KeepTogether, HRFlowable, Preformatted
 )
 from reportlab.pdfgen import canvas
 
@@ -170,8 +170,8 @@ def build_pdf_report():
         parent=styles["Normal"],
         fontName="Courier",
         fontSize=8,
-        leading=11,
-        textColor=colors.HexColor("#0f172a"),
+        leading=11.5,
+        textColor=colors.HexColor("#f8fafc"),
     )
 
     story = []
@@ -358,8 +358,18 @@ def build_pdf_report():
     if dvc_log_file.exists():
         with open(dvc_log_file) as f:
             dvc_lines = f.readlines()
-        excerpt = "".join(dvc_lines[:35])
-        story.append(Table([[Paragraph(f"<pre>{excerpt}</pre>", code_style)]], colWidths=[7.0 * inch]))
+        excerpt = "".join(dvc_lines[:25]).strip()
+        t_dvc = Table([[Preformatted(excerpt, code_style)]], colWidths=[7.0 * inch])
+        t_dvc.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#0f172a")),
+            ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#38bdf8")),
+            ("TOPPADDING", (0, 0), (-1, -1), 8),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ("LEFTPADDING", (0, 0), (-1, -1), 10),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+        ]))
+        story.append(t_dvc)
+        story.append(Paragraph("<b>Listing 1.1:</b> DVC Tracking Lifecycle Execution Log (Task 1.4).", callout_style))
     story.append(PageBreak())
 
     # =========================================================================
@@ -694,14 +704,14 @@ Raw Output Sigmoid: 0.4740
 Decision Threshold: 0.50
 Confidence Score  : 52.60%
 ============================================================"""
-    t_alias = Table([[Paragraph(f"<pre>{alias_terminal}</pre>", code_style)]], colWidths=[7.0 * inch])
+    t_alias = Table([[Preformatted(alias_terminal.strip(), code_style)]], colWidths=[7.0 * inch])
     t_alias.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#0f172a")),
-        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#334155")),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-        ("LEFTPADDING", (0, 0), (-1, -1), 8),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#38bdf8")),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
     ]))
     alias_block = KeepTogether([
         t_alias,
@@ -814,14 +824,14 @@ Confidence Score  : 52.60%
     timestamp_utc TEXT NOT NULL,
     client_ip TEXT
 );"""
-    t_dbs = Table([[Paragraph(f"<pre>{db_schema_txt}</pre>", code_style)]], colWidths=[7.0 * inch])
+    t_dbs = Table([[Preformatted(db_schema_txt.strip(), code_style)]], colWidths=[7.0 * inch])
     t_dbs.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#0f172a")),
-        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#334155")),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-        ("LEFTPADDING", (0, 0), (-1, -1), 8),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#38bdf8")),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
     ]))
     story.append(t_dbs)
     story.append(Paragraph("<b>Listing 4.1:</b> Production Database Audit Trail Schema (Task 5).", callout_style))
@@ -855,9 +865,11 @@ Confidence Score  : 52.60%
 
     docker_warmup_shot = ARTIFACTS_DIR / "screenshots" / "task6_1_docker_warmup.png"
     if docker_warmup_shot.exists():
-        story.append(RLImage(get_pdf_img(docker_warmup_shot), width=6.8 * inch, height=2.8 * inch))
+        story.append(RLImage(get_pdf_img(docker_warmup_shot), width=6.8 * inch, height=3.0 * inch))
         story.append(Paragraph("<b>Figure 6.1:</b> Terminal Evidence of Docker Warm-Up Lab Container Lifecycle Commands (Task 6.1).", callout_style))
         story.append(Spacer(1, 10))
+
+    story.append(PageBreak())
 
     story.append(Paragraph("6.2 & 6.3 Layer-Cached Dockerfile & Multi-Service Compose Stack (7 Marks)", h2_style))
     story.append(Paragraph(
@@ -881,17 +893,21 @@ visionguard_web     visionguard:latest     "gunicorn --bind 0.0…"   web       
 $ nc -z -v -w2 localhost 5432
 nc: connect to localhost port 5432 (tcp) failed: Connection refused
 (VERIFIED: PostgreSQL database port 5432 is completely closed to the outside host!)"""
-    t_cps = Table([[Paragraph(f"<pre>{compose_status_txt}</pre>", code_style)]], colWidths=[7.0 * inch])
+    t_cps = Table([[Preformatted(compose_status_txt.strip(), code_style)]], colWidths=[7.0 * inch])
     t_cps.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#0f172a")),
-        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#334155")),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-        ("LEFTPADDING", (0, 0), (-1, -1), 8),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#38bdf8")),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
     ]))
-    story.append(t_cps)
-    story.append(Paragraph("<b>Listing 6.1:</b> Docker Compose Service Health Verification & Closed Port Proof (Task 6.3).", callout_style))
+    cps_block = KeepTogether([
+        t_cps,
+        Spacer(1, 4),
+        Paragraph("<b>Listing 6.1:</b> Docker Compose Service Health Verification & Closed Port Proof (Task 6.3).", callout_style)
+    ])
+    story.append(cps_block)
     story.append(Spacer(1, 10))
 
     story.append(Paragraph("6.5 Intentional Failure Diagnosis & Log-Based Resolution (1.5 Marks)", h2_style))
