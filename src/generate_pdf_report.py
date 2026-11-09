@@ -192,7 +192,7 @@ def build_pdf_report():
         [Paragraph("<b>GitHub Repository</b>", body_style), Paragraph('<font color="#2563eb"><u>https://github.com/bissamiftikhar/23L-0913_A2_Ops</u></font>', body_style)],
         [Paragraph("<b>DagsHub Project</b>", body_style), Paragraph('<font color="#2563eb"><u>https://dagshub.com/bissamiftikhar/23L-0913_A2_Ops</u></font>', body_style)],
         [Paragraph("<b>Live Cloud API URL</b>", body_style), Paragraph('<font color="#2563eb"><u>https://visionguard-23l0913.onrender.com/api/predict</u></font>', body_style)],
-        [Paragraph("<b>Graded Version Commit</b>", body_style), Paragraph('<code>6cf1801</code> (Tagged: <code>v1.0-submission</code>)', body_style)],
+        [Paragraph("<b>Graded Version Commit</b>", body_style), Paragraph('<code>4b3fb41</code> (Tagged: <code>v1.0-submission</code>)', body_style)],
         [Paragraph("<b>Submission Date</b>", body_style), Paragraph(datetime.date.today().strftime("%B %d, %Y"), body_style)],
     ]
     meta_table = Table(meta_table_data, colWidths=[2.2 * inch, 4.8 * inch])
@@ -708,6 +708,16 @@ Confidence Score  : 52.60%
         ("RIGHTPADDING", (0, 0), (-1, -1), 8),
     ]))
     story.append(t_alias)
+    story.append(Paragraph("<b>Listing 3.1:</b> Programmatic Model Loading from Registry via Alias '@champion' (Task 3.6).", callout_style))
+    story.append(Spacer(1, 10))
+
+    # DagsHub & MLflow UI Screenshot Evidence
+    dh_shot = ARTIFACTS_DIR / "screenshots" / "task3_ui_dagshub_mlflow.png"
+    if dh_shot.exists():
+        story.append(RLImage(get_pdf_img(dh_shot), width=6.8 * inch, height=3.4 * inch))
+        story.append(Paragraph("<b>Figure 3.1:</b> DagsHub Repository Dashboard & MLflow Experiment Tracking Runs (Tasks 3.2, 3.5 & 3.6).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(PageBreak())
 
     # =========================================================================
@@ -742,6 +752,39 @@ Confidence Score  : 52.60%
     ))
     story.append(Spacer(1, 8))
 
+    # Screenshots of Upload & Results UI
+    upload_shot = ARTIFACTS_DIR / "screenshots" / "task4_ui_upload.png"
+    if upload_shot.exists():
+        story.append(RLImage(get_pdf_img(upload_shot), width=6.8 * inch, height=3.6 * inch))
+        story.append(Paragraph("<b>Figure 4.1:</b> VisionGuard Frontend Image Upload Portal Interface (Task 4.3).", callout_style))
+        story.append(Spacer(1, 10))
+
+    res_ai_shot = ARTIFACTS_DIR / "screenshots" / "task4_ui_result_ai.png"
+    res_real_shot = ARTIFACTS_DIR / "screenshots" / "task4_ui_result_real.png"
+    if res_ai_shot.exists() and res_real_shot.exists():
+        story.append(Table([
+            [
+                RLImage(get_pdf_img(res_ai_shot), width=3.35 * inch, height=2.1 * inch),
+                RLImage(get_pdf_img(res_real_shot), width=3.35 * inch, height=2.1 * inch)
+            ]
+        ], colWidths=[3.45 * inch, 3.45 * inch]))
+        story.append(Paragraph("<b>Figure 4.2:</b> VisionGuard Classification Result Cards (Left: AI-Generated Verdict | Right: Real Photo Verdict).", callout_style))
+        story.append(Spacer(1, 10))
+
+    err_ext = ARTIFACTS_DIR / "screenshots" / "task4_ui_error_wrong_extension.png"
+    err_sz = ARTIFACTS_DIR / "screenshots" / "task4_ui_error_oversize.png"
+    err_cr = ARTIFACTS_DIR / "screenshots" / "task4_ui_error_corrupt.png"
+    if err_ext.exists() and err_sz.exists() and err_cr.exists():
+        story.append(Table([
+            [
+                RLImage(get_pdf_img(err_ext), width=2.25 * inch, height=1.35 * inch),
+                RLImage(get_pdf_img(err_sz), width=2.25 * inch, height=1.35 * inch),
+                RLImage(get_pdf_img(err_cr), width=2.25 * inch, height=1.35 * inch)
+            ]
+        ], colWidths=[2.3 * inch, 2.3 * inch, 2.3 * inch]))
+        story.append(Paragraph("<b>Figure 4.3:</b> Multi-Layer Validation Failure Pages (Left: Unsupported Type 400 | Center: Payload Size >10MB 413 | Right: Corrupted Bytes 422) (Task 4.2).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(Paragraph("Task 5: Immutable Database Audit Trail (8 Marks)", h2_style))
     story.append(Paragraph(
         "Every single inference request executed through VisionGuard leaves a permanent, queryable audit record in SQL (SQLite locally, "
@@ -774,6 +817,14 @@ Confidence Score  : 52.60%
     ]))
     story.append(t_dbs)
     story.append(Paragraph("<b>Listing 4.1:</b> Production Database Audit Trail Schema (Task 5).", callout_style))
+    story.append(Spacer(1, 10))
+
+    hist_shot = ARTIFACTS_DIR / "screenshots" / "task5_ui_history.png"
+    if hist_shot.exists():
+        story.append(RLImage(get_pdf_img(hist_shot), width=6.8 * inch, height=3.6 * inch))
+        story.append(Paragraph("<b>Figure 5.1:</b> Database Trail History View (/history) Displaying Query Logs, Model Confidences & Latencies (Task 5).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(PageBreak())
 
     # =========================================================================
@@ -849,6 +900,14 @@ nc: connect to localhost port 5432 (tcp) failed: Connection refused
         "container startup healthcheck.",
         body_style
     ))
+    story.append(Spacer(1, 10))
+
+    gh_shot = ARTIFACTS_DIR / "screenshots" / "task6_ui_github_actions.png"
+    if gh_shot.exists():
+        story.append(RLImage(get_pdf_img(gh_shot), width=6.8 * inch, height=3.2 * inch))
+        story.append(Paragraph("<b>Figure 6.1:</b> GitHub Actions CI/CD Pipeline Dashboard (#42531442885: Python 3.11, 3.12, & Docker Build Passing) (Task 6.6).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(PageBreak())
 
     # =========================================================================
@@ -909,7 +968,15 @@ nc: connect to localhost port 5432 (tcp) failed: Connection refused
         ]))
         story.append(t_t8)
         story.append(Paragraph("<b>Table 8.1:</b> Multi-Input Cloud API Verification Results (Task 8).", callout_style))
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 10))
+
+    pm_shot = ARTIFACTS_DIR / "screenshots" / "task7_ui_postman_api.png"
+    if pm_shot.exists():
+        story.append(RLImage(get_pdf_img(pm_shot), width=6.8 * inch, height=3.6 * inch))
+        story.append(Paragraph("<b>Figure 7.1:</b> Postman Cloud Inference REST API Test Verification (POST /api/predict &mdash; 200 OK, 42.1ms Latency) (Tasks 7 & 8).", callout_style))
+        story.append(Spacer(1, 10))
+
+    story.append(PageBreak())
 
     # =========================================================================
     # CHAPTER 9: SUBMISSION CHECKLIST (SECTION 11.2)
