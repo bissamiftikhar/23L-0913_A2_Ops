@@ -37,22 +37,24 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY src/ ./src/
 COPY templates/ ./templates/
 COPY static/ ./static/
+COPY models/ ./models/
 COPY app.py .
 
-# Create models directory and assign ownership to non-root user
-RUN mkdir -p /app/models /app/data /app/instance && \
+# Create instance and data directories and assign ownership to non-root user
+RUN mkdir -p /app/data /app/instance && \
     chown -R appuser:appgroup /app
 
 # 6. Switch to non-root user
 USER appuser
 
-# 7. Expose Flask web service port
+# 7. Expose default Flask web service port
 EXPOSE 5001
 
 # 8. Container Healthcheck (Task 6.2 & 6.3)
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD curl -f http://localhost:5001/health || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=25s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-5001}/health || exit 1
 
 # 9. Default container entrypoint using production WSGI server (Gunicorn)
-CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "2", "--timeout", "120", "app:app"]
+# Uses ${PORT:-5001} to automatically adapt to Render ($PORT=10000) or local Docker ($PORT=5001)
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-5001} --workers 1 --timeout 120 app:app"]
 
