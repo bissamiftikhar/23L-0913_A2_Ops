@@ -254,22 +254,12 @@ def build_pdf_report():
         body_style
     ))
 
-    # Read and embed terminal check output if exists
-    env_txt_file = ARTIFACTS_DIR / "task1" / "task1_1_env_check.txt"
-    if env_txt_file.exists():
-        with open(env_txt_file) as f:
-            env_content = f.read()
-        env_table = Table([[Paragraph(f"<pre>{env_content}</pre>", code_style)]], colWidths=[7.0 * inch])
-        env_table.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#0f172a")),
-            ("BOX", (0, 0), (-1, -1), 1, colors.HexColor("#334155")),
-            ("TOPPADDING", (0, 0), (-1, -1), 6),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-            ("LEFTPADDING", (0, 0), (-1, -1), 8),
-            ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-        ]))
-        story.append(env_table)
-    story.append(Spacer(1, 10))
+    # Embed terminal check screenshot (Task 1.1)
+    env_shot = ARTIFACTS_DIR / "screenshots" / "task1_1_env_terminal.png"
+    if env_shot.exists():
+        story.append(RLImage(get_pdf_img(env_shot), width=6.8 * inch, height=3.0 * inch))
+        story.append(Paragraph("<b>Figure 1.1:</b> Terminal Screenshot of Environment, Dependencies & Apple Silicon Metal GPU Audit (Task 1.1).", callout_style))
+        story.append(Spacer(1, 10))
 
     # Sub-task 1.2: Dataset Audit
     story.append(Paragraph("1.2 Dataset Audit & Integrity Verification (3 Marks)", h2_style))
@@ -314,6 +304,8 @@ def build_pdf_report():
         story.append(Paragraph("<b>Table 1.1:</b> Comprehensive Dataset Audit Summary per Class and Overall (Task 1.2).", callout_style))
     story.append(Spacer(1, 10))
 
+    story.append(PageBreak())
+
     # Sub-task 1.3: Visual EDA
     story.append(Paragraph("1.3 Exploratory Data Analysis & Visualizations (1.5 Marks)", h2_style))
     story.append(Paragraph(
@@ -325,14 +317,14 @@ def build_pdf_report():
 
     grid_img_path = ARTIFACTS_DIR / "task1" / "task1_3_sample_grid.png"
     if grid_img_path.exists():
-        story.append(RLImage(get_pdf_img(grid_img_path), width=6.8 * inch, height=4.2 * inch))
-        story.append(Paragraph("<b>Figure 1.1:</b> Sample Images per Class (Top 2 Rows: Real Art/Photos | Bottom 2 Rows: AI-Generated).", callout_style))
+        story.append(RLImage(get_pdf_img(grid_img_path), width=6.8 * inch, height=3.3 * inch))
+        story.append(Paragraph("<b>Figure 1.2:</b> Sample Images per Class (Top 2 Rows: Real Art/Photos | Bottom 2 Rows: AI-Generated) (Task 1.3).", callout_style))
         story.append(Spacer(1, 8))
 
     hist_img_path = ARTIFACTS_DIR / "task1" / "task1_3_histograms.png"
     if hist_img_path.exists():
-        story.append(RLImage(get_pdf_img(hist_img_path), width=6.8 * inch, height=2.3 * inch))
-        story.append(Paragraph("<b>Figure 1.2:</b> Histograms of Image Width, Height, and File Size (KB, Log Scale) per Class.", callout_style))
+        story.append(RLImage(get_pdf_img(hist_img_path), width=6.8 * inch, height=2.1 * inch))
+        story.append(Paragraph("<b>Figure 1.3:</b> Histograms of Image Width, Height, and File Size (KB, Log Scale) per Class (Task 1.3).", callout_style))
         story.append(Spacer(1, 8))
 
     story.append(Paragraph(
@@ -612,7 +604,13 @@ def build_pdf_report():
         ]))
         story.append(t_toy)
         story.append(Paragraph("<b>Table 3.1:</b> Task 3.1 Local MLflow Comparison of Learning Rates on Built-In Dataset.", callout_style))
-    story.append(Spacer(1, 10))
+        story.append(Spacer(1, 8))
+
+    local_mlflow_shot = ARTIFACTS_DIR / "screenshots" / "task3_1_mlflow_local.png"
+    if local_mlflow_shot.exists():
+        story.append(RLImage(get_pdf_img(local_mlflow_shot), width=6.8 * inch, height=2.8 * inch))
+        story.append(Paragraph("<b>Figure 3.1:</b> Terminal Evidence of Local MLflow Execution (Runs lr=0.01 vs lr=0.001) & Metric Comparison (Task 3.1).", callout_style))
+        story.append(Spacer(1, 10))
 
     # Sub-task 3.2: DagsHub Remote Tracking
     story.append(Paragraph("3.2 DagsHub Remote MLflow Tracking Server Setup (2 Marks)", h2_style))
@@ -711,11 +709,13 @@ Confidence Score  : 52.60%
     story.append(Paragraph("<b>Listing 3.1:</b> Programmatic Model Loading from Registry via Alias '@champion' (Task 3.6).", callout_style))
     story.append(Spacer(1, 10))
 
+    story.append(PageBreak())
+
     # DagsHub & MLflow UI Screenshot Evidence
     dh_shot = ARTIFACTS_DIR / "screenshots" / "task3_ui_dagshub_mlflow.png"
     if dh_shot.exists():
         story.append(RLImage(get_pdf_img(dh_shot), width=6.8 * inch, height=3.4 * inch))
-        story.append(Paragraph("<b>Figure 3.1:</b> DagsHub Repository Dashboard & MLflow Experiment Tracking Runs (Tasks 3.2, 3.5 & 3.6).", callout_style))
+        story.append(Paragraph("<b>Figure 3.2:</b> DagsHub Repository Dashboard & MLflow Experiment Tracking Runs (Tasks 3.2, 3.5 & 3.6).", callout_style))
         story.append(Spacer(1, 10))
 
     story.append(PageBreak())
@@ -740,6 +740,12 @@ Confidence Score  : 52.60%
     ))
     story.append(Spacer(1, 8))
 
+    inf_console_shot = ARTIFACTS_DIR / "screenshots" / "task4_1_inference_console.png"
+    if inf_console_shot.exists():
+        story.append(RLImage(get_pdf_img(inf_console_shot), width=6.8 * inch, height=2.6 * inch))
+        story.append(Paragraph("<b>Figure 4.1:</b> Console Output for Singleton Model Inference on Real and AI Sample Images (Task 4.1).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(Paragraph("4.2 Multi-Layer Validation & Zero-Disk Retention Security (3 Marks)", h2_style))
     story.append(Paragraph(
         "VisionGuard implements defense-in-depth upload validation:<br/>"
@@ -752,11 +758,13 @@ Confidence Score  : 52.60%
     ))
     story.append(Spacer(1, 8))
 
+    story.append(PageBreak())
+
     # Screenshots of Upload & Results UI
     upload_shot = ARTIFACTS_DIR / "screenshots" / "task4_ui_upload.png"
     if upload_shot.exists():
-        story.append(RLImage(get_pdf_img(upload_shot), width=6.8 * inch, height=3.6 * inch))
-        story.append(Paragraph("<b>Figure 4.1:</b> VisionGuard Frontend Image Upload Portal Interface (Task 4.3).", callout_style))
+        story.append(RLImage(get_pdf_img(upload_shot), width=6.8 * inch, height=3.2 * inch))
+        story.append(Paragraph("<b>Figure 4.2:</b> VisionGuard Frontend Image Upload Portal Interface (Task 4.3).", callout_style))
         story.append(Spacer(1, 10))
 
     res_ai_shot = ARTIFACTS_DIR / "screenshots" / "task4_ui_result_ai.png"
@@ -768,7 +776,7 @@ Confidence Score  : 52.60%
                 RLImage(get_pdf_img(res_real_shot), width=3.35 * inch, height=2.1 * inch)
             ]
         ], colWidths=[3.45 * inch, 3.45 * inch]))
-        story.append(Paragraph("<b>Figure 4.2:</b> VisionGuard Classification Result Cards (Left: AI-Generated Verdict | Right: Real Photo Verdict).", callout_style))
+        story.append(Paragraph("<b>Figure 4.3:</b> VisionGuard Classification Result Cards (Left: AI-Generated Verdict | Right: Real Photo Verdict).", callout_style))
         story.append(Spacer(1, 10))
 
     err_ext = ARTIFACTS_DIR / "screenshots" / "task4_ui_error_wrong_extension.png"
@@ -782,7 +790,7 @@ Confidence Score  : 52.60%
                 RLImage(get_pdf_img(err_cr), width=2.25 * inch, height=1.35 * inch)
             ]
         ], colWidths=[2.3 * inch, 2.3 * inch, 2.3 * inch]))
-        story.append(Paragraph("<b>Figure 4.3:</b> Multi-Layer Validation Failure Pages (Left: Unsupported Type 400 | Center: Payload Size >10MB 413 | Right: Corrupted Bytes 422) (Task 4.2).", callout_style))
+        story.append(Paragraph("<b>Figure 4.4:</b> Multi-Layer Validation Failure Pages (Left: Unsupported Type 400 | Center: Payload Size >10MB 413 | Right: Corrupted Bytes 422) (Task 4.2).", callout_style))
         story.append(Spacer(1, 10))
 
     story.append(Paragraph("Task 5: Immutable Database Audit Trail (8 Marks)", h2_style))
@@ -845,6 +853,12 @@ Confidence Score  : 52.60%
     ))
     story.append(Spacer(1, 8))
 
+    docker_warmup_shot = ARTIFACTS_DIR / "screenshots" / "task6_1_docker_warmup.png"
+    if docker_warmup_shot.exists():
+        story.append(RLImage(get_pdf_img(docker_warmup_shot), width=6.8 * inch, height=2.8 * inch))
+        story.append(Paragraph("<b>Figure 6.1:</b> Terminal Evidence of Docker Warm-Up Lab Container Lifecycle Commands (Task 6.1).", callout_style))
+        story.append(Spacer(1, 10))
+
     story.append(Paragraph("6.2 & 6.3 Layer-Cached Dockerfile & Multi-Service Compose Stack (7 Marks)", h2_style))
     story.append(Paragraph(
         "<b>Key Dockerfile Engineering Decisions:</b><br/>"
@@ -902,10 +916,12 @@ nc: connect to localhost port 5432 (tcp) failed: Connection refused
     ))
     story.append(Spacer(1, 10))
 
+    story.append(PageBreak())
+
     gh_shot = ARTIFACTS_DIR / "screenshots" / "task6_ui_github_actions.png"
     if gh_shot.exists():
         story.append(RLImage(get_pdf_img(gh_shot), width=6.8 * inch, height=3.2 * inch))
-        story.append(Paragraph("<b>Figure 6.1:</b> GitHub Actions CI/CD Pipeline Dashboard (#42531442885: Python 3.11, 3.12, & Docker Build Passing) (Task 6.6).", callout_style))
+        story.append(Paragraph("<b>Figure 6.2:</b> GitHub Actions CI/CD Pipeline Dashboard (#42531442885: Python 3.11, 3.12, & Docker Build Passing) (Task 6.6).", callout_style))
         story.append(Spacer(1, 10))
 
     story.append(PageBreak())
